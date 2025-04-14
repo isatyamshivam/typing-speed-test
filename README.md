@@ -2,4 +2,4 @@ The Typing Speed Test Website is a simple and engaging platform designed to help
 
 Tech Stack : HTML, CSS, and JavaSript
 
-Visit : https://isatyamshivam.github.io/web-typing-speed-test/
+Visit : https://isatyamshivam.github.io/typing-speed-test/
