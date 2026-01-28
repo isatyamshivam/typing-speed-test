@@ -4,13 +4,34 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>T̶y̶p̶i̶n̶g̶ S̶p̶e̶e̶d̶ T̶e̶s̶t̶ G̶a̶m̶e̶</title>
+    <title>Typing Speed Test</title>
     <link rel="stylesheet" href="style.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⌨️</text></svg>">
   </head>
   <body>
+    <!-- Theme Toggle -->
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+      <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+      </svg>
+      <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+      </svg>
+    </button>
+
+    <div class="header">
+      <div class="keyboard-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+        </svg>
+      </div>
+      <h1>Typing Speed Test</h1>
+      <p>Test your typing skills and improve your speed</p>
+    </div>
+    
     <div class="wrapper">
-      <input type="text" class="input-field" />
+      <input type="text" class="input-field" autofocus />
       <div class="content-box">
         <div class="typing-text">
           <p></p>
@@ -18,38 +39,30 @@
         <div class="content">
           <ul class="result-details">
             <li class="time">
-              <p>
-                Time Left:
-                <!-- Timer -->
-              </p>
+              <p>Time Left</p>
               <span><b>60</b>s</span>
             </li>
             <li class="mistake">
-              <p>
-                Mistakes:
-                <!-- Mistakes -->
-              </p>
+              <p>Mistakes</p>
               <span>0</span>
             </li>
             <li class="wpm">
-              <p>
-                WPM:
-                <!-- Words Per Minute -->
-              </p>
+              <p>WPM</p>
               <span>0</span>
             </li>
             <li class="cpm">
-              <p>
-                CPM:
-                <!-- Count Per Minute-->
-              </p>
+              <p>CPM</p>
               <span>0</span>
             </li>
           </ul>
-          <button>Try Again</button>
+          <button>
+            <span>↻</span> Try Again
+          </button>
         </div>
       </div>
     </div>
+    
+    <p class="instruction">Click anywhere or press any key to start typing</p>
 
     <script>
       /* Paragraphs */
@@ -171,6 +184,42 @@
       loadParagraph();
       inpField.addEventListener("input", initTyping);
       tryAgainBtn.addEventListener("click", resetGame);
+    </script>
+    
+    <script>
+      // Theme Toggle Functionality
+      const themeToggle = document.getElementById('themeToggle');
+      const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+      
+      // Get saved theme or use system preference
+      function getTheme() {
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) return savedTheme;
+        return prefersDarkScheme.matches ? 'dark' : 'light';
+      }
+      
+      // Apply theme to document
+      function applyTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        localStorage.setItem('theme', theme);
+      }
+      
+      // Initialize theme
+      applyTheme(getTheme());
+      
+      // Toggle theme on button click
+      themeToggle.addEventListener('click', () => {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        applyTheme(newTheme);
+      });
+      
+      // Listen for system theme changes
+      prefersDarkScheme.addEventListener('change', (e) => {
+        if (!localStorage.getItem('theme')) {
+          applyTheme(e.matches ? 'dark' : 'light');
+        }
+      });
     </script>
   </body>
 </html>
